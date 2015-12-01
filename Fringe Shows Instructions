@@ -1,0 +1,242 @@
+Section 1
+
+## Revision of concepts that we've learnt in SQL today
+
+
+################################################################################
+Select the names of all users.
+
+---+------------------
+   1 | Rick Henri
+   2 | Jay Chetty
+   3 | Keith Douglas
+   4 | Callum Dougan
+   5 | Andrew Insley
+   6 | Daniel Gillespie
+   7 | Bethany Fraser
+   8 | Nick Ridell
+   9 | Evelyn Utterson
+  10 | Sky Su
+  11 | Nicholas Hill
+  12 | Michael McLeod
+  13 | Callum Hogg
+  14 | Chris Sloan
+  15 | Gary Carmichael
+  16 | Oscar Brooks
+  17 | Ross Galloway
+  18 | Paul MacLean
+  19 | Stuart Ramsay
+  20 | Peter Forbes
+  21 | Euan Walls
+  22 | Aine Dunphy
+  23 | Rick Henri
+  24 | Jay Chetty
+  25 | Keith Douglas
+  26 | Callum Dougan
+  27 | Andrew Insley
+  28 | Daniel Gillespie
+
+
+#################################################################################
+Select the names of all shows that cost less than £15.
+
+COMMAND LINE: ————— fringe_shows=# select price from shows where price <15;
+ price 
+
+OUTPUT: —————
+ 	12.99
+ 	12.99
+  	7.99
+  	8.50
+  	8.50
+  	6.00
+	(6 rows)
+
+################################################################################
+
+Insert a user with the name "Val Gibson" into the users table.
+
+COMMAND LINE:————- INSERT INTO "users" (name) VALUES ('ValerieGibson');  
+
+OUTPUT:————- 21 | Euan Walls
+ 	     22 | Aine Dunphy
+ 	     23 | Valerie Gibson
+             (23 rows)
+
+################################################################################
+
+Select the id of the user with your name.
+
+COMMAND LINE: ————— SELECT id from users WHERE (name) = 'Paul MacLean';
+
+OUTPUT: ————— 18
+	      (1 row)
+
+###############################################################################
+
+Insert a record that Val Gibson wants to attend the show "Two girls, one cup of comedy".
+
+COMMAND LINE: ————— fringe_shows=# INSERT INTO "shows_users" (show_id, user_id) VALUES (12, 23);
+
+OUTPUT: ————— 
+
+id | show_id | user_id 
+----+---------+---------
+  1 |       1 |       1
+  2 |       1 |       2
+  3 |       1 |       5
+  4 |       1 |       7
+  5 |       1 |       8
+  6 |       1 |      10
+  7 |       1 |      12
+  8 |       1 |      16
+  9 |       1 |      17
+ 10 |       2 |       3
+ 11 |       2 |       4
+ 12 |       2 |       6
+ 13 |       2 |       7
+ 14 |       2 |       9
+ 15 |       2 |      11
+ 16 |       2 |      14
+ 17 |       3 |       1
+ 18 |       3 |       3
+ 19 |       3 |       5
+ 20 |       3 |       8
+ 21 |       3 |       9
+ 22 |       3 |      13
+ 23 |       3 |      15
+ 24 |       4 |       3
+ 25 |       4 |       9
+ 26 |       4 |      10
+ 27 |       4 |      12
+ 28 |       4 |      14
+
+
+################################################################################
+
+Updates the name of the "Val Gibson" user to be "Valerie Gibson"
+
+COMMAND LINE:————— UPDATE users SET name = 'Valerie Gibson' WHERE name = 'Val Gibson';                           
+ 
+OUTPUT: ————— 23 | Valerie Gibson
+
+################################################################################
+
+Deletes the user with the name 'Valerie Gibson'.
+
+COMMAND LINE: ————— DELETE FROM users WHERE (name) = 'Valerie Gibson';
+
+OUTPUT: —————  20 | Peter Forbes
+	       21 | Euan Walls
+               22 | Aine Dunphy
+
+################################################################################
+
+Deletes the shows for the user you just deleted.
+ 
+##Couldn’t get this one
+
+###############################################################################
+
+
+
+Section 2
+
+This section involves more complex queries. You will need to go and find out about aggregate funcions in SQL to answer some of the next questions.
+
+###############################################################################
+
+Select the names and prices of all shows, ordered by price in ascending order.
+
+NOPE!!
+
+###############################################################################
+
+Select the average price of all shows.
+
+COMMAND: ———— SELECT AVG (price) FROM shows;
+
+OUTPUT: ————— 15.9569230769230769
+                 (1 row)
+
+##############################################################################
+
+Select the price of the least expensive show.
+
+COMMAND:——— SELECT MIN (price) FROM shows;
+
+OUTPUT: ——— 6.00
+           (1 row)
+
+##############################################################################
+
+Select the sum of the price of all shows.
+
+COMMAND:————— SELECT SUM (price) FROM shows;
+
+OUTPUT:————— 207.44
+	     (1 row)
+
+##############################################################################
+
+Select the sum of the price of all shows whose prices is less than £20.
+
+COMMAND:————— SELECT SUM (price) FROM shows where price <20;
+
+OUTPUT:————— 142.45
+             (1 row)
+
+#############################################################################
+
+Select the name and price of the most expensive show.
+
+COMMAND:————— SELECT name, price FROM shows WHERE price = (SELECT MAX(price) FROM shows);
+
+OUTPUT:—————   name          | price 
+     ------------------------+-------
+      Edinburgh Royal Tattoo | 32.99
+      (1 row)
+
+############################################################################
+
+Select the name and price of the second from cheapest show.
+#############################################################################
+
+Select the names of all users whose names start with the letter "N".
+
+COMMAND:————— SELECT * FROM users WHERE name LIKE 'N%';
+
+OUTPUT:————— id |     name      
+            ----+---------------
+              8 | Nick Ridell
+             11 | Nicholas Hill
+             (2 rows)
+
+#############################################################################
+
+Select the names of users whose names contain "mi".
+
+COMMAND:————— SELECT * FROM users WHERE name LIKE 'Mi%';
+
+OUTPUT:————— id |      name      
+            ----+----------------
+             12 | Michael McLeod
+             (1 row)
+
+############################################################################
+Section 3
+
+The following questions can be answered by using nested SQL statements but ideally you should learn about JOIN clauses to answer them.
+
+Select the time for the Edinburgh Royal Tattoo.
+
+Select the number of users who want to see "Shitfaced Shakespeare".
+
+Select all of the user names and the count of shows they're going to see.
+
+SELECT all users who are going to a show at 17:15.
+
+Hints
+
+As with anything, if you get stuck, move on, then go back if you have time.
+Don't spend all night on it!
